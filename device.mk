@@ -14,10 +14,7 @@
 # limitations under the License.
 #
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
-LOCAL_PATH := device/samsung/exynos3475-common
-
+# Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Device uses high-density artwork where available
@@ -28,10 +25,6 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 TARGET_SCREEN_WIDTH := 480
 TARGET_SCREEN_HEIGHT := 800
 TARGET_BOOTANIMATION_HALF_RES := true
-
-# Flat device tree for boot image
-PRODUCT_PACKAGES += \
-    dtbhtoolExynos
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -44,9 +37,13 @@ PRODUCT_PACKAGES += \
     init.wifi.rc \
     ueventd.universal3475.rc
 
+# Flat device tree for boot image
+PRODUCT_PACKAGES += \
+    dtbhtoolExynos
+
 # cpboot-daemon
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/ramdisk/cbd:root/sbin/cbd
+    $(LOCAL_PATH)/rootdir/sbin/cbd:root/sbin/cbd
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -74,29 +71,34 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
+# Audio
 PRODUCT_PACKAGES += \
-    gralloc.exynos3
+    audio.primary.universal3475 \
+    audio.a2dp.default \
+    audio.usb.default \
+    audio.r_submix.default \
+    libtinycompress
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/audio/audio/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/audio/audio/mixer_paths_0.xml:system/etc/mixer_paths_0.xml
+
+# Charger
 PRODUCT_PACKAGES += \
+    charger_res_images \
+    cm_charger_res_images
+
+# Display
+PRODUCT_PACKAGES += \
+    gralloc.exynos3 \
     libion \
-    libfimg
-
-# hardware/samsung/AdvancedDisplay (MDNIE)
-PRODUCT_PACKAGES += \
+    libfimg \
     AdvancedDisplay
 
-# Radio
-PRODUCT_PACKAGES += \
-    libxml2 \
-    libprotobuf-cpp-full
-
-PRODUCT_PACKAGES += \
-    libsecril-client \
-    libsecril-client-sap \
-    modemloader
-
-PRODUCT_PACKAGES += \
-    SamsungServiceMode
+# GPS
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
+    $(LOCAL_PATH)/gps/gps.xml:system/etc/gps.xml
 
 # IPv6
 PRODUCT_PACKAGES += \
@@ -104,11 +106,43 @@ PRODUCT_PACKAGES += \
     ethertypes \
     libebtc
 
-# WiFi
+# Keylayout
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
-    $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
+    $(LOCAL_PATH)/keylayout/sec_touchkey.kl:/system/usr/keylayout/sec_touchkey.kl \
+    $(LOCAL_PATH)/keylayout/gpio-keys.kl:/system/usr/keylayout/gpio-keys.kl
 
+# Light HAL
+PRODUCT_PACKAGES += \
+    lights.universal3475
+
+# Media
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+
+# Power
+PRODUCT_PACKAGES += \
+    power.universal3475
+
+# Radio
+PRODUCT_PACKAGES += \
+    libxml2 \
+    libprotobuf-cpp-full \
+    libsecril-client \
+    libsecril-client-sap \
+    modemloader \
+    SamsungServiceMode
+
+# Touchscreen
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/idc/AVRCP.idc:system/usr/idc/AVRCP.idc \
+    $(LOCAL_PATH)/idc/qwerty.idc:system/usr/idc/qwerty.idc \
+    $(LOCAL_PATH)/idc/qwerty2.idc:system/usr/idc/qwerty2.idc
+
+# WiFi
 PRODUCT_PACKAGES += \
     hostapd \
     libnetcmdiface \
@@ -117,63 +151,17 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
-# Audio
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/audio/audio_policy.conf:system/etc/audio_policy.conf \
-    $(LOCAL_PATH)/configs/audio/mixer_paths_0.xml:system/etc/mixer_paths_0.xml
-    
-PRODUCT_PACKAGES += \
-    audio.primary.universal3475 \
-    audio.a2dp.default \
-    audio.usb.default \
-    audio.r_submix.default \
-    libtinycompress
+    $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
+    $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
 
-# Media
-PRODUCT_COPY_FILES += \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml  \
-    $(LOCAL_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
-    $(LOCAL_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml
-
-# GPS
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/gps/gps.conf:system/etc/gps.conf \
-    $(LOCAL_PATH)/configs/gps/gps.xml:system/etc/gps.xml
-	
-# Keys
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/keylayout/sec_touchkey.kl:/system/usr/keylayout/sec_touchkey.kl \
-    $(LOCAL_PATH)/configs/keylayout/gpio-keys.kl:/system/usr/keylayout/gpio-keys.kl
-
-# Touchscreen
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/idc/AVRCP.idc:system/usr/idc/AVRCP.idc \
-    $(LOCAL_PATH)/configs/idc/qwerty.idc:system/usr/idc/qwerty.idc \
-    $(LOCAL_PATH)/configs/idc/qwerty2.idc:system/usr/idc/qwerty2.idc
-
-# Power
-PRODUCT_PACKAGES += \
-    power.universal3475
-
-# Lights
-PRODUCT_PACKAGES += \
-    lights.universal3475
-
-# Offmode charger
-PRODUCT_PACKAGES += \
-    charger_res_images \
-    cm_charger_res_images
-
-#ADB
+# ADB
 PRODUCT_PROPERTY_OVERRIDES += \
 	persist.service.adb.enable=1 \
 	persist.service.debuggable=1 \
 	persist.sys.usb.config=mtp,adb \
 	ro.secure=0 \
 	ro.adb.secure=0
-	
 
 # call Samsung LSI board support package
 $(call inherit-product, hardware/samsung_slsi-cm/exynos3475/exynos3475.mk)

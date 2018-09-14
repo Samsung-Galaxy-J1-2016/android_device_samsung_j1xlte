@@ -17,7 +17,7 @@
 #
 
 set -e
-DEVICE=exynos3475-common
+DEVICE=j1xlte
 VENDOR=samsung
 
 INITIAL_COPYRIGHT_YEAR=2018
