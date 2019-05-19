@@ -1,7 +1,7 @@
 # Release name
 PRODUCT_RELEASE_NAME := j1xlte
 
-# Inherit some common EOS stuff.
+# Inherit some common CyanogenMod stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit device configuration

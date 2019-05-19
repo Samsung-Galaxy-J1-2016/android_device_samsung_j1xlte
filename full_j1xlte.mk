@@ -22,7 +22,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
 # Inherit device configuration
 $(call inherit-product, device/samsung/j1xlte/device.mk)
-$(call inherit-product, device/samsung/j1xlte/device-common.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_NAME := full_j1xlte
