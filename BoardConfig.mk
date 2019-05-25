@@ -37,7 +37,7 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
 
 # Kernel
-TARGET_PREBUILT_KERNEL := device/samsung/j1xlte/kernel
+TARGET_PREBUILT_KERNEL := device/samsung/j1xlte/zImage
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt device/samsung/j1xlte/dt.img
 
