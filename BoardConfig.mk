@@ -41,6 +41,11 @@ TARGET_PREBUILT_KERNEL := device/samsung/j1xlte/zImage
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt device/samsung/j1xlte/dt.img
 
+# LZMA Compression
+LZMA_RAMDISK_TARGETS := recovery
+BOARD_CUSTOM_BOOTIMG_MK := device/samsung/j1xlte/bootimg.mk
+BOARD_CANT_BUILD_RECOVERY_FROM_BOOT_PATCH := true
+
 # File systems
 BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_USERIMAGES_USE_EXT4 := true
