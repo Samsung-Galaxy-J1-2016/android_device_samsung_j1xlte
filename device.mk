@@ -15,7 +15,7 @@
 #
 
 # Include common makefile
-$(call inherit-product, device/samsung/exynos3475-common/common.mk)
+$(call inherit-product, device/samsung/smdk3475-common/common.mk)
 
 DEVICE_PATH := device/samsung/j1xlte
 

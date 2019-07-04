@@ -15,7 +15,7 @@
 #
 
 # Include common Stuff
-include device/samsung/exynos3475-common/BoardCommonConfig.mk
+include device/samsung/smdk3475-common/BoardCommonConfig.mk
 
 DEVICE_PATH := device/samsung/j1xlte
 
