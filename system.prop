@@ -1,9 +1,7 @@
 #
-# system.prop for on5ltetmo
+# system.prop for j1xlte
 #
 
 # Play store
-ro.com.google.clientidbase.ms=android-hms-tmobile-us
-ro.com.google.clientidbase.am=android-tmobile-us
 ro.com.google.clientidbase.yt=android-samsung
 ro.com.google.clientidbase.gmm=android-samsung
