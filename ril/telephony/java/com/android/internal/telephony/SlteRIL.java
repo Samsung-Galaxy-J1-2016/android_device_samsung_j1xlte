@@ -334,7 +334,7 @@ public class SlteRIL extends RIL {
 
     @Override
     protected void
-    processUnsolicited(Parcel p, int type) {
+    processUnsolicited(Parcel p) {
         Object ret;
 
         int dataPosition = p.dataPosition();
@@ -392,7 +392,7 @@ public class SlteRIL extends RIL {
                 p.setDataPosition(dataPosition);
 
                 // Forward responses that we are not overriding to the super class
-                super.processUnsolicited(p, type);
+                super.processUnsolicited(p);
                 return;
         }
     }
