@@ -1,9 +1,14 @@
-#### macloader
+###############
+# macloader
 #
+
 type macloader, domain;
 type macloader_exec, exec_type, file_type;
 
-init_daemon_domain(macloader);
+allow macloader shell_exec:file { entrypoint read execute open execute_no_trans };
+allow macloader kmsg_device:chr_file { write open };
+
+allow macloader efs_file:dir search;
 
 allow macloader self:capability { chown dac_override fowner fsetid };
 allow macloader self:process execmem;
@@ -11,10 +16,6 @@ allow macloader self:process execmem;
 # Write into /data
 allow macloader system_data_file:dir { add_name search write };
 allow macloader system_file:file execute_no_trans;
-
-# /data/.cid.info
-# Automatically label files created in /data/ as wifi_data_file
-file_type_auto_trans(macloader, system_data_file, wifi_data_file);
 
 allow macloader wifi_data_file:dir create_dir_perms;
 allow macloader wifi_data_file:file { create_file_perms getattr setattr };
@@ -26,5 +27,5 @@ allow macloader sysfs:file rw_file_perms;
 allow macloader efs_file:dir r_dir_perms;
 
 # /efs/wifi/.mac.info
-allow macloader wifi_efs_file:dir r_dir_perms;
-allow macloader wifi_efs_file:file r_file_perms;
+allow macloader wifi_efs_file:dir rw_dir_perms;
+allow macloader wifi_efs_file:file rw_file_perms;

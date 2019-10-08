@@ -1,14 +1,12 @@
 # Allow additiional efs access
 allow rild bin_nv_data_efs_file:file create_file_perms;
-allow rild nv_log_efs_file:file { open read write append };
 allow rild imei_efs_file:dir r_dir_perms;
-allow rild imei_efs_file:file rw_file_perms;
+allow rild imei_efs_file:file r_file_perms;
 allow rild app_efs_file:dir r_dir_perms;
 allow rild app_efs_file:file r_file_perms;
 
-# /dev/mbin0
 allow rild block_device:dir r_dir_perms;
-allow rild emmcblk_device:blk_file r_file_perms;
+allow rild mmc_block_device:blk_file r_file_perms;
 
 # /dev/umts_boot0, /dev/umts_ipc0
 allow rild mif_device:chr_file rw_file_perms;
@@ -35,10 +33,3 @@ allow rild storage_file:dir { r_dir_perms };
 allow rild storage_file:lnk_file { r_file_perms };
 allow rild mnt_user_file:dir { r_dir_perms };
 allow rild mnt_user_file:lnk_file { r_file_perms };
-
-allow rild radio_block_device:blk_file { read open };
-allow rild ctl_rildaemon_prop:property_service set;
-allow rild self:capability chown;
-
-allow rild audioserver:dir search;
-allow rild audioserver:file { read open getattr };

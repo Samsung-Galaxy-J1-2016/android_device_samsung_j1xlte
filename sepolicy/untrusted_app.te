@@ -1,3 +1,4 @@
-allow untrusted_app battery_service:service_manager find;
-allow untrusted_app device:dir read;
-allow untrusted_app untrusted_app:udp_socket ioctl;
+allow untrusted_app init:dir r_dir_perms;
+allow untrusted_app kernel:dir r_dir_perms;
+allow untrusted_app unlabeled:dir r_dir_perms;
+allow untrusted_app unlabeled:file { read getattr open execute };
