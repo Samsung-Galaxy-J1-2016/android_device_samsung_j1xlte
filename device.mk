@@ -35,7 +35,7 @@ PRODUCT_PACKAGES += \
 
 # Ramdisk
 PRODUCT_PACKAGES += \
-    fstab.samsungexynos3475 \
+    fstab.universal3475 \
     init.baseband.rc \
     init.rilchip.rc \
     init.samsung.rc \
@@ -43,6 +43,18 @@ PRODUCT_PACKAGES += \
     init.universal3475.usb.rc \
     init.wifi.rc \
     ueventd.universal3475.rc
+
+# Replaces ramdisk init binary and init.rc with a working one
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/ramdisk/init:root/init \
+    $(LOCAL_PATH)/ramdisk/init.rc:root/init.rc
+
+# For debugging purposes. This should be removed on releases.
+ADDITIONAL_DEFAULT_PROPERTIES += \
+ro.secure=0 \
+ro.debuggable=1 \
+persist.sys.usb.config=mtp \
+ro.adb.secure=0
 
 # cpboot-daemon
 PRODUCT_COPY_FILES += \
