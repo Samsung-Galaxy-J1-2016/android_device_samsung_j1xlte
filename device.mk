@@ -16,7 +16,7 @@
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
-LOCAL_PATH := device/samsung/j2lte
+LOCAL_PATH := device/samsung/j1xte
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
@@ -53,7 +53,7 @@ PRODUCT_COPY_FILES += \
 ADDITIONAL_DEFAULT_PROPERTIES += \
 ro.secure=0 \
 ro.debuggable=1 \
-persist.sys.usb.config=mtp \
+persist.sys.usb.config=mtp,adb \
 ro.adb.secure=0
 
 # cpboot-daemon
@@ -187,4 +187,4 @@ $(call inherit-product, hardware/samsung_slsi-cm/exynos3475/exynos3475.mk)
 $(call inherit-product, hardware/samsung_slsi-cm/exynos5/exynos5.mk)
 
 # call the proprietary setup
-$(call inherit-product, vendor/samsung/j2lte/j2lte-vendor.mk)
+$(call inherit-product, vendor/samsung/j1xlte/j1xlte-vendor.mk)

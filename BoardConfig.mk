@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := device/samsung/j2lte
+LOCAL_PATH := device/samsung/j1xlte
 
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
@@ -55,9 +55,11 @@ TARGET_USES_UNCOMPRESSED_KERNEL := true
 # Kernel config
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-eabi-
 KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-eabi-4.8/bin
-TARGET_KERNEL_SOURCE := kernel/samsung/exynos3475
-TARGET_KERNEL_CONFIG := lineage-j2lte_defconfig
-BOARD_CUSTOM_BOOTIMG_MK := hardware/samsung/mkbootimg.mk
+TARGET_KERNEL_SOURCE := kernel/samsung/j1xlte
+TARGET_KERNEL_CONFIG := j1xlte_02_defconfig
+# Enable "Kernel is not SEAndroid Enforcing" Warning
+#BOARD_CUSTOM_BOOTIMG_MK := hardware/samsung/mkbootimg.mk
+BOARD_CUSTOM_BOOTIMG_MK := device/samsung/j1xlte/mkbootimg.mk
 
 # Partitions
 
@@ -73,13 +75,13 @@ BOARD_CUSTOM_BOOTIMG_MK := hardware/samsung/mkbootimg.mk
 #/dev/block/mmcblk0p18      8080     288      7792   4% /persdata/
 
 # Partitions
-BOARD_BOOTIMAGE_PARTITION_SIZE := 14495514624
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 14495514624
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 805306368
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 5100273664
+BOARD_BOOTIMAGE_PARTITION_SIZE := 13631488
+BOARD_CACHEIMAGE_PARTITION_SIZE := 209715200
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 15728640
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2415919104
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 4970250240
 BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -160,7 +162,7 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)
 #RECOVERY_VARIANT := twrp
 BOARD_HAS_DOWNLOAD_MODE := true
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/ramdisk/fstab.universal3475
-TARGET_OTA_ASSERT_DEVICE := j2lte, j2ltedd, j2ltedx
+TARGET_OTA_ASSERT_DEVICE := j1xlte, j1xltejt
 
 # TWRP
 ifeq ($(RECOVERY_VARIANT),twrp)
@@ -184,4 +186,4 @@ BOARD_SECCOMP_POLICY += $(LOCAL_PATH)/seccomp
 BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy
 
 # Inherit from the proprietary version
--include vendor/samsung/j2lte/BoardConfigVendor.mk
+-include vendor/samsung/j1xlte/BoardConfigVendor.mk
