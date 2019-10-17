@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := device/samsung/o5prolte
+LOCAL_PATH := device/samsung/j1xlte
 
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
@@ -42,7 +42,7 @@ BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 -
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_IMAGE_NAME := zImage
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive androidboot.hardware=universal3475 androidboot.baseband=exynos3475
 BOARD_KERNEL_SEPARATED_DT := true
 TARGET_CUSTOM_DTBTOOL := dtbhtoolExynos
 
@@ -52,10 +52,10 @@ TARGET_KERNEL_HEADER_ARCH := arm
 TARGET_USES_UNCOMPRESSED_KERNEL := true
 
 # Kernel config
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
-KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-linux-androideabi-4.9/bin
-TARGET_KERNEL_SOURCE := kernel/samsung/exynos3475
-TARGET_KERNEL_CONFIG := lineage-o5lteswa_defconfig
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-eabi-
+KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-eabi-4.8/bin
+TARGET_KERNEL_SOURCE := kernel/samsung/j1xlte
+TARGET_KERNEL_CONFIG := j1xlte_02_defconfig
 BOARD_CUSTOM_BOOTIMG_MK := hardware/samsung/mkbootimg.mk
 
 # Partitions
@@ -73,14 +73,13 @@ BOARD_CUSTOM_BOOTIMG_MK := hardware/samsung/mkbootimg.mk
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 13631488
+BOARD_CACHEIMAGE_PARTITION_SIZE := 209715200
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 15728640
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2147483648
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 4831838208
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2415919104
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 4970250240
 BOARD_FLASH_BLOCK_SIZE := 4096
 TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_CACHEIMAGE_PARTITION_SIZE    := 202211328
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE  := ext4
-# TARGET_USERIMAGES_USE_F2FS := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 # Bluetooth
@@ -163,7 +162,6 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)
 #RECOVERY_VARIANT := twrp
 BOARD_HAS_DOWNLOAD_MODE := true
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/ramdisk/fstab.universal3475
-TARGET_OTA_ASSERT_DEVICE := on5lte, on5ltedd, on5ltedx, o5prolte, o5proltedd, o5proltedx
 
 # TWRP
 ifeq ($(RECOVERY_VARIANT),twrp)
@@ -187,4 +185,4 @@ BOARD_SECCOMP_POLICY += $(LOCAL_PATH)/seccomp
 BOARD_SEPOLICY_DIRS := $(LOCAL_PATH)/sepolicy
 
 # Inherit from the proprietary version
--include vendor/samsung/o5prolte/BoardConfigVendor.mk
+-include vendor/samsung/j1xlte/BoardConfigVendor.mk
